@@ -33,7 +33,7 @@
 #
 #            2010/07/28 - Add fixes for filelists in line with LF standard
 #			- Remove now defunct "framepointer" kernel variant
-#			- Change version to "rhel6-rh2" as a consequence.
+#			- Change version to "rhel7-rh1" as a consequence.
 #
 #            2010/01/10 - Simplified for RHEL6. We are working on upstream
 #                         moving to a newer format and in any case do not
@@ -42,7 +42,7 @@
 shopt -s extglob
 
 myprog="kmodtool"
-myver="rhel6-rh2"
+myver="rhel7-rh1"
 knownvariants=@(debug|kdump)
 kmod_name=
 kver=

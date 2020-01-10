@@ -1,22 +1,21 @@
 %define kmod_name		lpfc
-%define kmod_driver_version	10.2.8021.0
+%define kmod_driver_version	11.1.0.2
 %define kmod_rpm_release	1
-%define kmod_git_hash		1e39b8e3a7604d0531f2c521366d40d3298fa155
-%define kmod_kernel_version	3.10.0-123.el7
-%define kernel_version		3.10.0-123.el7
+%define kmod_git_hash		a54693bca358ff3061a3adb3239844cd8afcc8eb
+%define kmod_kernel_version	3.10.0-327.el7
+%define kernel_version		3.10.0-327.el7
 %define kmod_kbuild_dir		drivers/scsi/lpfc
 
 
 %{!?dist: %define dist .el7}
 
-Source0:	%{kmod_name}-%{kmod_driver_version}.tar.bz2			
-Source1:	%{kmod_name}.files			
-Source2:	depmodconf			
-Source3:	find-requires.ksyms			
-Source4:	find-provides.ksyms			
-Source5:	kmodtool			
-Source6:	symbols.greylist-ppc64			
-Source7:	symbols.greylist-x86_64			
+Source0:	%{kmod_name}-%{kmod_driver_version}.tar.bz2
+Source1:	%{kmod_name}.files
+Source2:	depmodconf
+Source3:	find-requires.ksyms
+Source4:	find-provides.ksyms
+Source5:	kmodtool
+Source6:	symbols.greylist-x86_64
 
 
 %define __find_requires %_sourcedir/find-requires.ksyms
@@ -31,8 +30,8 @@ Group:		System/Kernel
 License:	GPLv2
 URL:		http://www.kernel.org/
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-BuildRequires:	%kernel_module_package_buildreqs
-ExclusiveArch:  ppc64 x86_64
+BuildRequires:	kernel-devel = %kmod_kernel_version kmod
+ExclusiveArch:  x86_64
 
 
 # Build only for standard kernel variant(s); for debug packages, append "debug"
@@ -48,7 +47,6 @@ set -- *
 mkdir source
 mv "$@" source/
 cp %{SOURCE6} source/
-cp %{SOURCE7} source/
 mkdir obj
 
 %build
@@ -103,5 +101,6 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed Oct 22 2014 Weiping Pan <panweiping3@gmail.com> 10.2.8021.0 1
+* Mon Aug 01 2016 Petr Oros <poros@redhat.com> 11.1.0.2 1
 - lpfc DUP module
+- Resolves: #1363621
